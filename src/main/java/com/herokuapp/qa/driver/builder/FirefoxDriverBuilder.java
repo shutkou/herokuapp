@@ -1,4 +1,4 @@
-package com.herokuapp.qa.driverBuilder;
+package com.herokuapp.qa.driver.builder;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;

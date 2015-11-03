@@ -2,9 +2,8 @@ package com.herokuapp.qa.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-
-import com.herokuapp.qa.order.builder.OrderBuilder;
 
 public class WelcomePage extends BasePage{
 
@@ -18,14 +17,17 @@ public class WelcomePage extends BasePage{
 	private By select = By.cssSelector("select");
 	private By checkoutBtn = By.name("commit");
 	
-	public OrderBuilder placeOrder(String item, String quantity) {
-		OrderBuilder orderBuilder = new OrderBuilder(driver);
-		return orderBuilder.add(item, quantity);
+	public WebElement getCheckoutBtn() {
+		return driver.findElement(checkoutBtn);
+	}
+	
+	public WebElement getOrderField(WebElement row) {
+		return row.findElement(orderField);
 	}
 	
 	public void orderItem(String name, String amount) {
 		filterRows(hasName.apply(name))
-		.map(row -> row.findElement(orderField))
+		.map(this :: getOrderField)
 		.findFirst()
 		.ifPresent(field -> driverUtil.type(field, amount));
 	}
@@ -39,10 +41,6 @@ public class WelcomePage extends BasePage{
 		dropdown.selectByValue(state.toUpperCase());
 	}
 
-	public By getCheckoutBtn() {
-		return checkoutBtn;
-	}
-	
 	public void goTo() {
 		if( !isAt() ) {
 		driver.navigate().to(BASE_URL);

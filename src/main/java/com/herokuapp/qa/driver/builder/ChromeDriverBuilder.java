@@ -1,4 +1,4 @@
-package com.herokuapp.qa.driverBuilder;
+package com.herokuapp.qa.driver.builder;
 
 import java.io.File;
 

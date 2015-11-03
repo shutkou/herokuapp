@@ -1,4 +1,4 @@
-package com.herokuapp.qa.specs;
+package com.herokuapp.qa.spec;
 
 import java.util.HashMap;
 

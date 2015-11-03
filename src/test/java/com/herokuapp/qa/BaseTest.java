@@ -7,10 +7,10 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
-import com.herokuapp.qa.driverFactory.DriverFactory;
-import com.herokuapp.qa.driverFactory.DriverUtil;
+import com.herokuapp.qa.driver.DriverUtil;
+import com.herokuapp.qa.driver.factory.DriverFactory;
 
-public class BaseTest {
+public abstract class BaseTest {
 
 	protected WebDriver driver;
 	protected DriverUtil driverUtil;

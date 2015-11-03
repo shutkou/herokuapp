@@ -1,4 +1,4 @@
-package com.herokuapp.qa.driverFactory;
+package com.herokuapp.qa.driver;
 
 import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
@@ -17,8 +17,8 @@ import org.slf4j.LoggerFactory;
 
 public class DriverUtil {
 
-	public static final int TIMEOUT = 60;
-	public static final int IMPL_TIMEOUT = 100;
+	public static final int TIMEOUT = 20;
+	public static final int IMPL_TIMEOUT = 50;
 	private WebDriver driver;
 	private FluentWait<WebDriver> wait;
 	private final static Logger LOGGER = LoggerFactory.getLogger(DriverUtil.class);

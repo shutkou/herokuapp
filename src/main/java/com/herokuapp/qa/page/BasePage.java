@@ -12,7 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.FluentWait;
 
-import com.herokuapp.qa.driverFactory.DriverUtil;
+import com.herokuapp.qa.driver.DriverUtil;
 
 public abstract class BasePage {
 
@@ -47,12 +47,14 @@ public abstract class BasePage {
 	}
 	
 	public HashMap<String, BigDecimal> getActualPrices() {
+		waitForPageToLoad();
 		HashMap<String, BigDecimal> actualPrices = new HashMap<String, BigDecimal>();
 		getRows().forEach(row -> actualPrices.put(nameMapper(row), priceMapper(row)));
 		return actualPrices;
 	}
 	
 	public HashMap<String, Integer> getActualQuantity() {
+		waitForPageToLoad();
 		HashMap<String, Integer> actualQuantity = new HashMap<String, Integer>();
 		getRows().forEach(row -> actualQuantity.put(nameMapper(row), quantityMapper(row)));
 		return actualQuantity;

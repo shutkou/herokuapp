@@ -1,10 +1,10 @@
-package com.herokuapp.qa.driverFactory;
+package com.herokuapp.qa.driver.factory;
 
 import org.openqa.selenium.WebDriver;
 
-import com.herokuapp.qa.driverBuilder.ChromeDriverBuilder;
-import com.herokuapp.qa.driverBuilder.FirefoxDriverBuilder;
-import com.herokuapp.qa.driverBuilder.WebDriverBuilder;
+import com.herokuapp.qa.driver.builder.ChromeDriverBuilder;
+import com.herokuapp.qa.driver.builder.FirefoxDriverBuilder;
+import com.herokuapp.qa.driver.builder.WebDriverBuilder;
 
 
 public class DriverFactory {

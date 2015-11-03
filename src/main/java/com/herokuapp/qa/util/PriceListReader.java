@@ -30,7 +30,7 @@ public class PriceListReader {
 		return prices;
 	}
 	
-	public HashMap<String, Integer> getStockQuantity(){
+	public HashMap<String, Integer> getInventoryQuantity(){
 		stockQuantity = new HashMap<String, Integer>();
 		sheet.forEach(this :: putStockQuantity);
 		return stockQuantity;

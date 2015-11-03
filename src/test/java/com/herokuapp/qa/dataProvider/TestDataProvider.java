@@ -6,7 +6,7 @@ import com.herokuapp.qa.util.TaxesReader;
 
 public class TestDataProvider {
 	
-	@DataProvider(name = "taxes")
+	@DataProvider(name = "taxes", parallel = false)
 	public static Object[][] taxes() {
 		
 		TaxesReader taxesReader = new TaxesReader();

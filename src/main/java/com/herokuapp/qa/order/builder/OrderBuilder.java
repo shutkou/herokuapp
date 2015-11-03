@@ -4,23 +4,28 @@ import java.util.HashMap;
 
 import org.openqa.selenium.WebDriver;
 
-import com.herokuapp.qa.order.processor.OrderProcessor;
-import com.herokuapp.qa.specs.Order;
+import com.herokuapp.qa.page.WelcomePage;
+import com.herokuapp.qa.spec.Order;
 
 public class OrderBuilder {
 	
-	private OrderProcessor orderProcessor;
+	private WelcomePage welcomePage;
 	private Order order;
+
 	
 	public OrderBuilder(WebDriver driver) {
-		orderProcessor = new OrderProcessor(driver);
+		welcomePage = new WelcomePage(driver);
 		HashMap<String, String> items = new HashMap<String, String>();
 		order = new Order(items);
 	}
 	
-	public OrderBuilder add(String item, String quantity) {
+	public OrderBuilder addItem(String item, String quantity) {
 		order.getItems().put(item, quantity);
 		return this;
+	}
+	
+	public OrderBuilder addItem(String item, int quantity) {
+		return addItem(item, Integer.toString(quantity));
 	}
 	
 	public OrderBuilder selectState (String state) {
@@ -28,8 +33,12 @@ public class OrderBuilder {
 		return this;
 	}
 	
-	public void submit() {
-		orderProcessor.submitOrder(order);
+	public void submitOrder() {
+		
+		welcomePage.waitForPageToLoad();
+		order.getItems().forEach(welcomePage :: orderItem);
+		welcomePage.selectState(order.getState());
+		welcomePage.getCheckoutBtn().click();
 	}
 
 }

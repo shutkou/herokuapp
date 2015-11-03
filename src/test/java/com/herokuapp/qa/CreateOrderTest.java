@@ -15,6 +15,7 @@ import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
 import com.herokuapp.qa.dataProvider.TestDataProvider;
+import com.herokuapp.qa.order.builder.OrderBuilder;
 import com.herokuapp.qa.page.CheckoutPage;
 import com.herokuapp.qa.page.WelcomePage;
 import com.herokuapp.qa.util.PriceListReader;
@@ -22,7 +23,7 @@ import com.herokuapp.qa.util.PriceListReader;
 public class CreateOrderTest extends BaseTest {
 
 	private HashMap<String, BigDecimal> givenPrices;
-	private HashMap<String, Integer> givenQuantity;
+	private HashMap<String, Integer> givenInventory;
 	
 	private BigDecimal expectedSubTotal;
 	private BigDecimal expectedTaxes;
@@ -30,6 +31,8 @@ public class CreateOrderTest extends BaseTest {
 	
 	private WelcomePage welcomePage;
 	private CheckoutPage checkoutPage;
+	private OrderBuilder orderBuilder;
+	private PriceListReader priceListReader;
 	private BigDecimal taxRate;
 	private String stateName;
 	
@@ -44,47 +47,47 @@ public class CreateOrderTest extends BaseTest {
 		setUpDriver();
 		welcomePage = new WelcomePage(driver);
 		checkoutPage = new CheckoutPage(driver);
-		welcomePage.goTo();
-		
-		PriceListReader priceListReader = new PriceListReader();
+		orderBuilder = new OrderBuilder(driver);
+		priceListReader = new PriceListReader();
 		givenPrices = priceListReader.getPrices();
-		givenQuantity = priceListReader.getStockQuantity();
+		givenInventory = priceListReader.getInventoryQuantity();
+		
+		welcomePage.goTo();
 	}
 	
-	@Test(priority = 2)
+	@Test(priority = 1)
 	public void verifyPricesOnWelcomePageTest(){
 		
 		HashMap<String, BigDecimal> actualPrices = welcomePage.getActualPrices();
 		assertThat( givenPrices.entrySet(), everyItem(isIn(actualPrices.entrySet())));
 	}
 	
-	@Test(priority = 2)
+	@Test(priority = 1)
 	public void verifyQuantityOnWelcomePageTest(){
 		
 		HashMap<String, Integer> actualQuantity = welcomePage.getActualQuantity();
-		assertThat( givenQuantity.entrySet(), everyItem(isIn(actualQuantity.entrySet())));
+		assertThat( givenInventory.entrySet(), everyItem(isIn(actualQuantity.entrySet())));
 	}
 	
-	@Test(priority = 3)
+	@Test(priority = 2)
 	public void verifyPricesOnCheckoutPageTest(){
 		
-		givenQuantity.forEach(welcomePage :: orderItem);
-		welcomePage.selectState(stateName);
-		driverUtil.waitAndClick(welcomePage.getCheckoutBtn());
-		checkoutPage.waitForPageToLoad();
+		givenInventory.forEach(orderBuilder :: addItem);
+		orderBuilder.selectState(stateName)
+					.submitOrder();
 		
-		HashMap<String, BigDecimal> actualPrices = welcomePage.getActualPrices();
+		HashMap<String, BigDecimal> actualPrices = checkoutPage.getActualPrices();
 		assertThat( givenPrices.entrySet(), everyItem(isIn(actualPrices.entrySet())));
 	}
 	
-	@Test(priority = 4)
+	@Test(priority = 3)
 	public void verifyQuantityOnCheckOutPageTest(){
 		
-		HashMap<String, Integer> actualQuantity = welcomePage.getActualQuantity();
-		assertThat(givenQuantity.entrySet(), everyItem(isIn(actualQuantity.entrySet())));
+		HashMap<String, Integer> actualInventory = checkoutPage.getActualQuantity();
+		assertThat(givenInventory.entrySet(), everyItem(isIn(actualInventory.entrySet())));
 	}
 	
-	@Test(priority = 4)
+	@Test(priority = 3)
 	public void verifySubTotalTest(){
 		
 		expectedSubTotal = checkoutPage.calculateSubTotal();
@@ -92,7 +95,7 @@ public class CreateOrderTest extends BaseTest {
 		assertThat(expectedSubTotal, equalTo(actualSubTotal));
 	}
 	
-	@Test(priority = 5)
+	@Test(priority = 4)
 	public void verifyTaxesTest(){
 		
 		expectedTaxes = expectedSubTotal.multiply(taxRate).setScale(2, RoundingMode.HALF_UP);
@@ -100,7 +103,7 @@ public class CreateOrderTest extends BaseTest {
 		assertThat(expectedTaxes, equalTo(actualTaxes));
 	}
 	
-	@Test(priority = 6)
+	@Test(priority = 5)
 	public void verifyTotalTest(){
 		
 		expectedTotal = expectedSubTotal.add(expectedTaxes);

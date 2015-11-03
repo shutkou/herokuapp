@@ -18,10 +18,12 @@ public class CheckoutPage extends BasePage{
 	private By total = By.id("total");
 	
 	public BigDecimal calculateSubTotal() {
+		waitForPageToLoad();
 		return getRows()
 				.stream()
 				.map(this :: getRowTotal)
-				.reduce(new BigDecimal(0), (a, b) -> a.add(b));
+				.reduce(new BigDecimal(0), (a, b) -> a.add(b))
+				.setScale(2, RoundingMode.HALF_UP);
 	}
 	
 	public BigDecimal getTaxes() {
@@ -36,7 +38,6 @@ public class CheckoutPage extends BasePage{
 		return getValueAsBigDecimal(subtotal);
 	}
 	
-	@Override
 	public void waitForPageToLoad() {
 		super.waitForPageToLoad();
 		driverUtil.waitForAll(total);
