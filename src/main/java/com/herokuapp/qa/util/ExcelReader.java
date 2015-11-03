@@ -6,13 +6,15 @@ import java.io.FileInputStream;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
-public class ExcelReader {
+import com.herokuapp.qa.config.TestConfig;
 
+public class ExcelReader {
+		
 	private HSSFWorkbook workbook;	
 	
 	public ExcelReader(String excelPath) {
 		try {
-		File src = new File(CommonUtil.getClasspathRoot() + excelPath);	
+		File src = new File(TestConfig.getClasspathRoot() + excelPath);	
 		FileInputStream fileInputStream = new FileInputStream(src);
 		workbook = new HSSFWorkbook(fileInputStream);
 		} catch (Exception e) {
@@ -24,5 +26,4 @@ public class ExcelReader {
 	public HSSFSheet getSheet(String sheetName){
 		return workbook.getSheet(sheetName);
 	}
-
 }

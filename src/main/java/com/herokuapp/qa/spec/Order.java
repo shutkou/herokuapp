@@ -2,14 +2,15 @@ package com.herokuapp.qa.spec;
 
 import java.util.HashMap;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+@Component
+@Scope("prototype")
 public class Order {
 	
 	private HashMap <String, String> items;
 	private String state;
-	
-	public Order() {
-	
-	}
 	
 	public Order(HashMap <String, String> items, String state) {
 		this.items = items;

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.ss.usermodel.Row;
 
+
 public class PriceListReader {
 	
 	private static final int NAME_COLOMN = 0;
