@@ -11,11 +11,10 @@ public class OrderBuilder {
 	
 	private WelcomePage welcomePage;
 	private Order order;
-
 	
 	public OrderBuilder(WebDriver driver) {
-		welcomePage = new WelcomePage(driver);
 		HashMap<String, String> items = new HashMap<String, String>();
+		welcomePage = new WelcomePage(driver);
 		order = new Order(items);
 	}
 	
@@ -28,13 +27,12 @@ public class OrderBuilder {
 		return addItem(item, Integer.toString(quantity));
 	}
 	
-	public OrderBuilder selectState (String state) {
+	public OrderBuilder setState (String state) {
 		order.setState(state);
 		return this;
 	}
 	
 	public void submitOrder() {
-		
 		welcomePage.waitForPageToLoad();
 		order.getItems().forEach(welcomePage :: orderItem);
 		welcomePage.selectState(order.getState());

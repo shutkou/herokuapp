@@ -48,7 +48,7 @@ public class CreateOrderTest extends BaseTest {
 		welcomePage = new WelcomePage(driver);
 		checkoutPage = new CheckoutPage(driver);
 		orderBuilder = new OrderBuilder(driver);
-		priceListReader = new PriceListReader();
+		priceListReader = new PriceListReader(PRICE_LIST_PATH, SHEET_PRICES);
 		givenPrices = priceListReader.getPrices();
 		givenInventory = priceListReader.getInventoryQuantity();
 		
@@ -73,7 +73,7 @@ public class CreateOrderTest extends BaseTest {
 	public void verifyPricesOnCheckoutPageTest(){
 		
 		givenInventory.forEach(orderBuilder :: addItem);
-		orderBuilder.selectState(stateName)
+		orderBuilder.setState(stateName)
 					.submitOrder();
 		
 		HashMap<String, BigDecimal> actualPrices = checkoutPage.getActualPrices();

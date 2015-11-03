@@ -12,6 +12,9 @@ import com.herokuapp.qa.driver.factory.DriverFactory;
 
 public abstract class BaseTest {
 
+	protected static final String PRICE_LIST_PATH = "/testData/priceList.xls";
+	protected static final String SHEET_PRICES = "priceList";
+	protected static final String SHEET_TAXES = "stateTaxes";
 	protected WebDriver driver;
 	protected DriverUtil driverUtil;
 	protected FluentWait<WebDriver> wait;

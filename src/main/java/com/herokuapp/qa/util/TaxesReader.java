@@ -5,8 +5,6 @@ import org.apache.poi.ss.usermodel.Row;
 
 public class TaxesReader {
 	
-	private static final String PRICE_LIST_PATH = "/testData/priceList.xls";
-	private static final String SHEET_TAXES = "stateTaxes";
 	private static final int STATE_COLOMN = 0;
 	private static final int TAX_COLOMN = 1;
 	
@@ -14,9 +12,9 @@ public class TaxesReader {
 	private HSSFSheet sheet;
 	private Object[][] taxes;
 	
-	public TaxesReader() {
-		excelReader = new ExcelReader(PRICE_LIST_PATH);
-		sheet = excelReader.getSheet(SHEET_TAXES);
+	public TaxesReader(String exlPath, String sheetName) {
+		excelReader = new ExcelReader(exlPath);
+		sheet = excelReader.getSheet(sheetName);
 	}
 	
 	public Object[][] getTaxes() {
