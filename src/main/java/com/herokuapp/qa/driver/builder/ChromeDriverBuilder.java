@@ -14,6 +14,7 @@ import com.herokuapp.qa.config.TestConfig;
 @Scope("prototype")
 public class ChromeDriverBuilder implements WebDriverBuilder{
 
+	//TODO: move the cons to test.properties
 	private static final String CHROME_DRIVER_PATH = "/drivers/chromedriver";
 	private static final String CHROME_DRIVER_PROPERTY = "webdriver.chrome.driver";
 

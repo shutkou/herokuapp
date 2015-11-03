@@ -17,6 +17,7 @@ public class WelcomePage extends BasePage{
 		super(driver);
 	}
 	
+	//TODO: move the cons to test.properties
 	public static final String BASE_URL = "https://jungle-socks.herokuapp.com/";
 	
 	private By orderField = By.cssSelector("td>input");
