@@ -50,7 +50,9 @@ public class CreateOrderTest extends BaseTest {
 	public void setUp(){
 		super.setUp();
 
-		priceListReader = new PriceListReader(PRICE_LIST_PATH, SHEET_PRICES);
+		priceListReader = new PriceListReader(_applicationContext.getEnvironment().getProperty("priceList.path"),
+				_applicationContext.getEnvironment().getProperty("priceList.sheet"));
+	
 		givenPrices = priceListReader.getPrices();
 		givenInventory = priceListReader.getInventoryQuantity();
 		
