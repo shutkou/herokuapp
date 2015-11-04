@@ -13,4 +13,5 @@ public class TestDataProvider extends BaseTest{
 		TaxesReader taxesReader = new TaxesReader(PRICE_LIST_PATH, SHEET_TAXES);
 		return taxesReader.getTaxes();
 	}
+	
 }

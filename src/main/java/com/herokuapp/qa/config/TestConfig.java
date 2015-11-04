@@ -5,6 +5,7 @@ import java.io.File;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,9 @@ import com.herokuapp.qa.driver.factory.DriverFactory;
 		@Autowired
 		DriverFactory driverFactory;
 		
+		@Autowired
+		private ApplicationContext applicationContext;
+		
 		@Value("${priceList.path}")
 		private String priceListPath;
 		
@@ -33,6 +37,11 @@ import com.herokuapp.qa.driver.factory.DriverFactory;
 		@Bean
 		public static PropertySourcesPlaceholderConfigurer getPropertySourcesPlaceholderConfigurer() {
 			return new PropertySourcesPlaceholderConfigurer();
+		}
+		
+		@Bean
+		public ApplicationContext applicationContext() {
+			return this.applicationContext;
 		}
 		
 		@Bean

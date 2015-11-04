@@ -22,7 +22,7 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
 	protected static final String SHEET_PRICES = "priceList";
 	protected static final String SHEET_TAXES = "stateTaxes";
 	
-	protected static ApplicationContext _applicationContext;
+	public static ApplicationContext _applicationContext;
 	
 	@Autowired
 	protected WebDriver driver;
