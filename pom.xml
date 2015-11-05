@@ -12,6 +12,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  	<resource.directory>src/main/resources</resource.directory>
   </properties>
 
   <dependencies>
@@ -49,12 +50,7 @@
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-test</artifactId>
 		<version>4.2.1.RELEASE</version>
-	</dependency>
-	<dependency>
-		<groupId>com.google.android</groupId>
-		<artifactId>android</artifactId>
-		<version>LATEST</version>
-		<scope>provided</scope>
+		<scope>test</scope>
 	</dependency>
     <dependency>
 	    <groupId>org.testng</groupId>
@@ -62,11 +58,6 @@
 	    <version>6.9.8</version>
 	    <scope>test</scope>
     </dependency>
-    <dependency>
-		<groupId>io.appium</groupId>
-		<artifactId>java-client</artifactId>
-		<version>3.2.0</version>
-	</dependency>
 	<dependency>
 		<groupId>commons-validator</groupId>
 		<artifactId>commons-validator</artifactId>

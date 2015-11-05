@@ -9,13 +9,14 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
 
-import org.testng.annotations.AfterClass;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
 import com.herokuapp.qa.dataProvider.TestDataProvider;
-import com.herokuapp.qa.order.builder.OrderBuilder;
+import com.herokuapp.qa.orderProcessor.OrderProcessor;
 import com.herokuapp.qa.page.CheckoutPage;
 import com.herokuapp.qa.page.WelcomePage;
 import com.herokuapp.qa.util.PriceListReader;
@@ -28,10 +29,13 @@ public class CreateOrderTest extends BaseTest {
 	private BigDecimal expectedSubTotal;
 	private BigDecimal expectedTaxes;
 	private BigDecimal expectedTotal;
-	
+
+	@Autowired
 	private WelcomePage welcomePage;
+	@Autowired
 	private CheckoutPage checkoutPage;
-	private OrderBuilder orderBuilder;
+	@Autowired
+	private OrderProcessor orderBuilder;
 	private PriceListReader priceListReader;
 	private BigDecimal taxRate;
 	private String stateName;
@@ -44,11 +48,11 @@ public class CreateOrderTest extends BaseTest {
 	
 	@BeforeClass
 	public void setUp(){
-		setUpDriver();
-		welcomePage = new WelcomePage(driver);
-		checkoutPage = new CheckoutPage(driver);
-		orderBuilder = new OrderBuilder(driver);
-		priceListReader = new PriceListReader(PRICE_LIST_PATH, SHEET_PRICES);
+		super.setUp();
+
+		priceListReader = new PriceListReader(_applicationContext.getEnvironment().getProperty("priceList.path"),
+				_applicationContext.getEnvironment().getProperty("priceList.sheet"));
+	
 		givenPrices = priceListReader.getPrices();
 		givenInventory = priceListReader.getInventoryQuantity();
 		
@@ -111,7 +115,7 @@ public class CreateOrderTest extends BaseTest {
 		assertThat(expectedTotal, equalTo(actualTotal));
 	}
 	
-	@AfterClass
+	@AfterSuite
 	public void cleanUp() {
 		quitDriver();
 	}

@@ -1,33 +1,39 @@
-package com.herokuapp.qa.order.builder;
+package com.herokuapp.qa.orderProcessor;
 
 import java.util.HashMap;
 
 import org.openqa.selenium.WebDriver;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import com.herokuapp.qa.page.WelcomePage;
 import com.herokuapp.qa.spec.Order;
 
-public class OrderBuilder {
+@Component
+@Scope("prototype")
+public class OrderProcessor {
 	
-	private WelcomePage welcomePage;
+	@Autowired
+	private WelcomePage welcomePage;	
 	private Order order;
 	
-	public OrderBuilder(WebDriver driver) {
+	@Autowired
+	public OrderProcessor(WebDriver driver) {
 		HashMap<String, String> items = new HashMap<String, String>();
-		welcomePage = new WelcomePage(driver);
 		order = new Order(items);
 	}
 	
-	public OrderBuilder addItem(String item, String quantity) {
+	public OrderProcessor addItem(String item, String quantity) {
 		order.getItems().put(item, quantity);
 		return this;
 	}
 	
-	public OrderBuilder addItem(String item, int quantity) {
+	public OrderProcessor addItem(String item, int quantity) {
 		return addItem(item, Integer.toString(quantity));
 	}
 	
-	public OrderBuilder setState (String state) {
+	public OrderProcessor setState (String state) {
 		order.setState(state);
 		return this;
 	}
