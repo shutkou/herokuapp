@@ -1,7 +1,13 @@
 # herokuapp
 challenge solution
 
+
+* prereq: JAVA 1.8, MAVEN 3.3
+
+
 #To run: 
+
+
 
 mvn test , or 
 
