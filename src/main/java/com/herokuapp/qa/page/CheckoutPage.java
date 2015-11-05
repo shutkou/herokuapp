@@ -6,9 +6,15 @@ import java.math.RoundingMode;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
+@Component
+@Scope("prototype")
 public class CheckoutPage extends BasePage{
 
+	@Autowired
 	public CheckoutPage(WebDriver driver) {
 		super(driver);
 	}
