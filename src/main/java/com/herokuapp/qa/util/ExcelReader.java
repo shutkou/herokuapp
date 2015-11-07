@@ -5,11 +5,14 @@ import java.io.FileInputStream;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.herokuapp.qa.config.TestConfig;
 
 public class ExcelReader {
 		
+	private static Logger logger = LoggerFactory.getLogger(ExcelReader.class);
 	private HSSFWorkbook workbook;	
 	
 	public ExcelReader(String excelPath) {
@@ -18,8 +21,7 @@ public class ExcelReader {
 		FileInputStream fileInputStream = new FileInputStream(src);
 		workbook = new HSSFWorkbook(fileInputStream);
 		} catch (Exception e) {
-			e.printStackTrace();
-			//TODO LOGGER
+			logger.warn("Excel reader exeption: ", e);
 		}
 	}
 	
