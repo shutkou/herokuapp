@@ -5,7 +5,7 @@ import org.apache.poi.ss.usermodel.Row;
 
 public class TaxesReader {
 	
-	private static final int STATE_COLOMN = 0;
+	private static final int NAME_COLOMN = 0;
 	private static final int TAX_COLOMN = 1;
 	
 	private ExcelReader excelReader;
@@ -25,7 +25,7 @@ public class TaxesReader {
 	}
 	
 	private void putTax(Row row){
-		String name = row.getCell(STATE_COLOMN).getStringCellValue();
+		String name = row.getCell(NAME_COLOMN).getStringCellValue();
 		String taxAsString = row.getCell(TAX_COLOMN).getStringCellValue();
 		taxes[row.getRowNum()][0] = name;
 		taxes[row.getRowNum()][1] = taxAsString;

@@ -10,6 +10,7 @@ import java.math.RoundingMode;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Factory;
@@ -30,12 +31,17 @@ public class CreateOrderTest extends BaseTest {
 	private BigDecimal expectedTaxes;
 	private BigDecimal expectedTotal;
 
+	@Value("${priceList.path}")
+	private String pricelistPath;
+	@Value("${sheet.prices}")
+	private String prices;
+	
 	@Autowired
 	private WelcomePage welcomePage;
 	@Autowired
 	private CheckoutPage checkoutPage;
 	@Autowired
-	private OrderProcessor orderBuilder;
+	private OrderProcessor orderProcessor;
 	private PriceListReader priceListReader;
 	private BigDecimal taxRate;
 	private String stateName;
@@ -50,8 +56,7 @@ public class CreateOrderTest extends BaseTest {
 	public void setUp(){
 		super.setUp();
 
-		priceListReader = new PriceListReader(_applicationContext.getEnvironment().getProperty("priceList.path"),
-				_applicationContext.getEnvironment().getProperty("priceList.sheet"));
+		priceListReader = new PriceListReader(pricelistPath, prices);
 	
 		givenPrices = priceListReader.getPrices();
 		givenInventory = priceListReader.getInventoryQuantity();
@@ -76,8 +81,8 @@ public class CreateOrderTest extends BaseTest {
 	@Test(priority = 2)
 	public void verifyPricesOnCheckoutPageTest(){
 		
-		givenInventory.forEach(orderBuilder :: addItem);
-		orderBuilder.setState(stateName)
+		givenInventory.forEach(orderProcessor :: addItem);
+		orderProcessor.setState(stateName)
 					.submitOrder();
 		
 		HashMap<String, BigDecimal> actualPrices = checkoutPage.getActualPrices();
