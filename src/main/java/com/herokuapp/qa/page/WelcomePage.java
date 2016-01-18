@@ -13,9 +13,9 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class WelcomePage extends BasePage{
 
-	@Autowired
-	public WelcomePage(WebDriver driver) {
-		super(driver);
+	//@Autowired
+	public WelcomePage() {
+		super();
 	}
 	
 	@Value("${base.url}")
@@ -26,7 +26,7 @@ public class WelcomePage extends BasePage{
 	private By checkoutBtn = By.name("commit");
 	
 	public WebElement getCheckoutBtn() {
-		return driver.findElement(checkoutBtn);
+		return getDriver().findElement(checkoutBtn);
 	}
 	
 	public WebElement getOrderField(WebElement row) {
@@ -45,13 +45,13 @@ public class WelcomePage extends BasePage{
 	}
 	
 	public void selectState(String state) {
-		Select dropdown = new Select(driver.findElement(select));
+		Select dropdown = new Select(getDriver().findElement(select));
 		dropdown.selectByValue(state.toUpperCase());
 	}
 
 	public void goTo() {
 		if( !isAt() ) {
-		driver.navigate().to(baseUrl);
+		getDriver().navigate().to(baseUrl);
 		}
 		waitForPageToLoad();
 	}

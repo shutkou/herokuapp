@@ -33,11 +33,11 @@ import com.herokuapp.qa.driver.factory.DriverFactory;
 		    return propertyConfigurer;
 		}
 		
-		@Bean
-		public WebDriver driver() {
-			driverFactory.setUpDriver(System.getProperty(SPRING_PROFILES_ACTIVE));
-			return driverFactory.getDriver();
-		}
+//		@Bean
+//		public WebDriver driver() {
+//			driverFactory.setUpDriver(System.getProperty(SPRING_PROFILES_ACTIVE));
+//			return driverFactory.getDriver();
+//		}
 	
 		public static File getClasspathRoot() {
 			return new File(System.getProperty(USER_DIR));

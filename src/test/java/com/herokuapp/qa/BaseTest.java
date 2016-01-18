@@ -17,11 +17,13 @@ import com.herokuapp.qa.driver.factory.DriverFactory;
 @ContextConfiguration(classes = { TestConfig.class })
 public abstract class BaseTest extends AbstractTestNGSpringContextTests {
 		
-	@Autowired
-	protected WebDriver driver;
+	//@Autowired
+	//protected WebDriver driver;
 	
 	@Autowired
 	protected DriverUtil driverUtil;
+	@Autowired
+	protected DriverFactory driverFactory;
 	protected FluentWait<WebDriver> wait;
 	private String browser = DriverFactory.CHROME;
 
@@ -34,12 +36,17 @@ public abstract class BaseTest extends AbstractTestNGSpringContextTests {
 	}
 
 	protected void setUp() {
+		driverFactory.setUpDriver(System.getProperty(TestConfig.SPRING_PROFILES_ACTIVE));
 		wait = driverUtil.wait(DriverUtil.TIMEOUT);	}
 
 	protected void quitDriver() {
-		if (driver != null) {
-			driver.quit();
+		if (getDriver() != null) {
+			getDriver().quit();
 		}
+	}
+	
+	protected WebDriver getDriver() {
+		return DriverFactory.getDriver();
 	}
 	
 }

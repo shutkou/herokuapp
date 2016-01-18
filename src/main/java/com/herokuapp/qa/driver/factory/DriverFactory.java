@@ -10,7 +10,7 @@ import com.herokuapp.qa.driver.builder.FirefoxDriverBuilder;
 import com.herokuapp.qa.driver.builder.WebDriverBuilder;
 
 @Component
-@Scope("prototype")
+//@Scope("prototype")
 public class DriverFactory {
 	
 	public static final String CHROME = "chrome";
@@ -20,7 +20,7 @@ public class DriverFactory {
 	private ChromeDriverBuilder chromeDriverBuilder;
 	@Autowired
 	private FirefoxDriverBuilder firefoxDriverBuilder;
-	private WebDriver driver;
+	private static InheritableThreadLocal<WebDriver> driver = new InheritableThreadLocal<>();
 	
 	public void setUpDriver (String browser) {
 		if (browser.equalsIgnoreCase(CHROME)){
@@ -28,10 +28,10 @@ public class DriverFactory {
 		}else if(browser.equalsIgnoreCase(FIREFOX)){
 			webdriverBuilder = firefoxDriverBuilder;
 		}
-		driver = webdriverBuilder.buildDriver();
+		driver.set(webdriverBuilder.buildDriver());
 	}
 	
-	public WebDriver getDriver() {
-		return driver;
+	public static WebDriver getDriver() {
+		return driver.get();
 	}
 }

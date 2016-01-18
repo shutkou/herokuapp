@@ -18,8 +18,8 @@ public class OrderProcessor {
 	private WelcomePage welcomePage;	
 	private Order order;
 	
-	@Autowired
-	public OrderProcessor(WebDriver driver) {
+	//@Autowired
+	public OrderProcessor() {
 		HashMap<String, String> items = new HashMap<String, String>();
 		order = new Order(items);
 	}

@@ -17,37 +17,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.herokuapp.qa.driver.factory.DriverFactory;
+
 @Component
 @Scope("prototype")
 public class DriverUtil {
 
 	public static final int TIMEOUT = 20;
 	public static final int IMPL_TIMEOUT = 50;
-	private WebDriver driver;
-	private FluentWait<WebDriver> wait;
+	//private WebDriverFactory.getDriver() DriverFactory.getDriver();
+	//private FluentWait<WebDriver> wait;
 	private final static Logger LOGGER = LoggerFactory.getLogger(DriverUtil.class);
 
-	@Autowired
-	public DriverUtil(WebDriver driver) {
-		this.driver = driver;
-		wait = wait(TIMEOUT);
+	public DriverUtil() {
+		//wait = wait(TIMEOUT);
 	}
 
 	public void setImpliciteWait(int timeout) {
-		driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
+		DriverFactory.getDriver().manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
 	}
 
 	/**
 	 * Wait will ignore instances of NotFoundException that are encountered (thrown) by default in the 'until' condition, and immediately propagate all others. You can add more to the ignore list by
 	 * calling ignoring(exceptions to add).
 	 *
-	 * @param driver
-	 *            The WebDriver instance to pass to the expected conditions
+	 * @param DriverFactory.getDriver()
+	 *            The WebDriverFactory.getDriver() instance to pass to the expected conditions
 	 * @param timeOutInSeconds
 	 *            The timeout in seconds when an expectation is called
 	 */
 	public FluentWait<WebDriver> wait(int timeOutInSeconds) {
-		return new WebDriverWait(driver, timeOutInSeconds).ignoring(
+		return new WebDriverWait(DriverFactory.getDriver(), timeOutInSeconds).ignoring(
 				NoSuchElementException.class,
 				StaleElementReferenceException.class);
 	}
@@ -103,16 +103,16 @@ public class DriverUtil {
 
 	public void waitAndClick(By locator) {
 		try {
-			wait.until(ExpectedConditions.elementToBeClickable(locator));
+			wait(TIMEOUT).until(ExpectedConditions.elementToBeClickable(locator));
 		} catch (Exception e) {
 			LOGGER.warn(String.format("Wait for element located by ('%s') timed out after %s / " + e, locator, TIMEOUT));
 		}
-		driver.findElement(locator).click();
+		DriverFactory.getDriver().findElement(locator).click();
 	}
 
 	public void waitAndClick(WebElement element) {
 		try {
-			wait.until(ExpectedConditions.elementToBeClickable(element));
+			wait(TIMEOUT).until(ExpectedConditions.elementToBeClickable(element));
 		} catch (Exception e) {
 			LOGGER.warn(String.format("Wait for element located by ('%s') timed out after %s / " + e, element, TIMEOUT));
 		}
@@ -130,8 +130,8 @@ public class DriverUtil {
 	 *            to send
 	 */
 	public void type(By locator, String text) {
-		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-		WebElement element = driver.findElement(locator);
+		wait(TIMEOUT).until(ExpectedConditions.visibilityOfElementLocated(locator));
+		WebElement element = DriverFactory.getDriver().findElement(locator);
 		element.click();
 		element.clear();
 		element.sendKeys(text);
@@ -187,5 +187,5 @@ public class DriverUtil {
 	}
 	
 	public Predicate<By> isElementPresentBy = 
-			by -> driver.findElements(by).size() > 0;
+			by -> DriverFactory.getDriver().findElements(by).size() > 0;
 }

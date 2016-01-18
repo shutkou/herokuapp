@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
@@ -96,7 +96,7 @@ public class CreateOrderTest extends BaseTest {
 		assertThat(givenInventory.entrySet(), everyItem(isIn(actualInventory.entrySet())));
 	}
 	
-	@Test(priority = 3)
+	@Test(priority = 4)
 	public void verifySubTotalTest(){
 		
 		expectedSubTotal = checkoutPage.calculateSubTotal();
@@ -104,7 +104,7 @@ public class CreateOrderTest extends BaseTest {
 		assertThat(expectedSubTotal, equalTo(actualSubTotal));
 	}
 	
-	@Test(priority = 4)
+	@Test(priority = 5)
 	public void verifyTaxesTest(){
 		
 		expectedTaxes = expectedSubTotal.multiply(taxRate).setScale(2, RoundingMode.HALF_UP);
@@ -112,7 +112,7 @@ public class CreateOrderTest extends BaseTest {
 		assertThat(expectedTaxes, equalTo(actualTaxes));
 	}
 	
-	@Test(priority = 5)
+	@Test(priority = 6)
 	public void verifyTotalTest(){
 		
 		expectedTotal = expectedSubTotal.add(expectedTaxes);
@@ -120,7 +120,7 @@ public class CreateOrderTest extends BaseTest {
 		assertThat(expectedTotal, equalTo(actualTotal));
 	}
 	
-	@AfterSuite
+	@AfterClass
 	public void cleanUp() {
 		quitDriver();
 	}

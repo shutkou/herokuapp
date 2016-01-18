@@ -13,17 +13,18 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import com.herokuapp.qa.driver.DriverUtil;
+import com.herokuapp.qa.driver.factory.DriverFactory;
 
 public abstract class BasePage {
 
-	protected WebDriver driver;
+	//protected WebDriver driver;
 	protected DriverUtil driverUtil;
-	protected FluentWait<WebDriver> wait;
+	//protected FluentWait<WebDriver> wait;
 	
-	public BasePage(WebDriver driver) {
-		this.driver = driver;
-		this.driverUtil = new DriverUtil(driver);
-		this.wait = driverUtil.wait(DriverUtil.TIMEOUT);
+	public BasePage() {
+		//this.driver = driver;
+		this.driverUtil = new DriverUtil();
+		//this.wait = driverUtil.wait(DriverUtil.TIMEOUT);
 	}
 	
 	protected By row = By.cssSelector(".line_item");
@@ -33,7 +34,7 @@ public abstract class BasePage {
 	
 	public List<? extends WebElement> getRows() {
 		driverUtil.waitForAll(row, DriverUtil.TIMEOUT);
-		return driver.findElements(row);
+		return getDriver().findElements(row);
 	};
 
 	public <T> Stream<T> mapRows(Function<WebElement, T> mapper) {
@@ -84,5 +85,11 @@ public abstract class BasePage {
 		driverUtil.waitForAll(quantity);
 	}
 	
-				
+	protected WebDriver getDriver() {
+		return DriverFactory.getDriver();
+	}
+	
+//	protected FluentWait<WebDriver> _wait() {
+//		return driverUtil.wait(DriverUtil.TIMEOUT);
+//	}			
 }

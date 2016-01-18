@@ -14,9 +14,9 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class CheckoutPage extends BasePage{
 
-	@Autowired
-	public CheckoutPage(WebDriver driver) {
-		super(driver);
+	//@Autowired
+	public CheckoutPage() {
+		super();
 	}
 	
 	private By subtotal = By.id("subtotal");
@@ -58,7 +58,7 @@ public class CheckoutPage extends BasePage{
 	}
 	
 	private BigDecimal getValueAsBigDecimal(By by) {
-		String totalAsString = driver.findElement(by).getText()
+		String totalAsString = getDriver().findElement(by).getText()
 				.replace("$", "");
 		return new BigDecimal(totalAsString).setScale(2);
 	}
