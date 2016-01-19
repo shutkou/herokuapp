@@ -13,7 +13,6 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -25,8 +24,6 @@ public class DriverUtil {
 
 	public static final int TIMEOUT = 20;
 	public static final int IMPL_TIMEOUT = 50;
-	//private WebDriverFactory.getDriver() DriverFactory.getDriver();
-	//private FluentWait<WebDriver> wait;
 	private final static Logger LOGGER = LoggerFactory.getLogger(DriverUtil.class);
 
 	public DriverUtil() {

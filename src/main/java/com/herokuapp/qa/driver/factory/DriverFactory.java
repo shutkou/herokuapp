@@ -2,7 +2,6 @@ package com.herokuapp.qa.driver.factory;
 
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.herokuapp.qa.driver.builder.ChromeDriverBuilder;
@@ -10,7 +9,6 @@ import com.herokuapp.qa.driver.builder.FirefoxDriverBuilder;
 import com.herokuapp.qa.driver.builder.WebDriverBuilder;
 
 @Component
-//@Scope("prototype")
 public class DriverFactory {
 	
 	public static final String CHROME = "chrome";

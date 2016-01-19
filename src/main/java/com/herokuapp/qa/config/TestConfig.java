@@ -2,11 +2,12 @@ package com.herokuapp.qa.config;
 
 import java.io.File;
 
-import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ClassPathResource;
@@ -22,6 +23,15 @@ import com.herokuapp.qa.driver.factory.DriverFactory;
 		public static final String TEST_PROPERTIES = "test.properties";
 		public static final String USER_DIR = "user.dir";
 		
+		@Value("${base.url.qa1}")
+		private String baseUrlQA1;
+		
+		@Value("${base.url.dev}")
+		private String baseUrlDev;
+		
+		@Value("${base.url.prod}")
+		private String baseUrlProd;
+		
 		@Autowired
 		DriverFactory driverFactory;
 
@@ -33,11 +43,23 @@ import com.herokuapp.qa.driver.factory.DriverFactory;
 		    return propertyConfigurer;
 		}
 		
-//		@Bean
-//		public WebDriver driver() {
-//			driverFactory.setUpDriver(System.getProperty(SPRING_PROFILES_ACTIVE));
-//			return driverFactory.getDriver();
-//		}
+		@Bean(name="baseUrl")
+		@Profile("qa1")
+		public String getUrlQA1() {
+			return baseUrlQA1;
+		}
+		
+		@Bean(name="baseUrl")
+		@Profile("dev")
+		public String getUrlDev() {
+			return baseUrlDev;
+		}
+		
+		@Bean(name="baseUrl")
+		@Profile("prod")
+		public String getUrlProd() {
+			return baseUrlProd;
+		}
 	
 		public static File getClasspathRoot() {
 			return new File(System.getProperty(USER_DIR));

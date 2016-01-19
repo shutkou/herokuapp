@@ -12,7 +12,6 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
@@ -52,8 +51,8 @@ public class CreateOrderTest extends BaseTest {
 		this.taxRate = new BigDecimal(taxRate);
 	}
 	
-	@BeforeClass
-	public void setUp(){
+	@Override
+	public void setUp() {
 		super.setUp();
 
 		priceListReader = new PriceListReader(pricelistPath, prices);
@@ -122,6 +121,8 @@ public class CreateOrderTest extends BaseTest {
 	
 	@AfterClass
 	public void cleanUp() {
+		System.out.println("afterClass is run on thread : " + Thread.currentThread().getId());
+
 		quitDriver();
 	}
 	

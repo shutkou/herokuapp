@@ -2,7 +2,6 @@ package com.herokuapp.qa.orderProcessor;
 
 import java.util.HashMap;
 
-import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -18,7 +17,6 @@ public class OrderProcessor {
 	private WelcomePage welcomePage;	
 	private Order order;
 	
-	//@Autowired
 	public OrderProcessor() {
 		HashMap<String, String> items = new HashMap<String, String>();
 		order = new Order(items);

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="none">
+<parameter name="profile" value="${profile}" />
+  <test name="Test1" group-by-instances="true" preserve-order="true">
+  
+    <classes>
+    <parameter name="browser" value="${browser}" />
+      <class name="com.herokuapp.qa.CreateOrderTest"/>
+    </classes>
+  </test>
+</suite> 

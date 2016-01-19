@@ -1,11 +1,8 @@
 package com.herokuapp.qa.page;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -13,13 +10,9 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class WelcomePage extends BasePage{
 
-	//@Autowired
 	public WelcomePage() {
 		super();
 	}
-	
-	@Value("${base.url}")
-	private String baseUrl; 
 	
 	private By orderField = By.cssSelector("td>input");
 	private By select = By.cssSelector("select");

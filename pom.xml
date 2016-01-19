@@ -143,9 +143,10 @@
         <configuration>
             <systemPropertyVariables>
                 <browser>${browser}</browser>
+                <profile>${profile}</profile>
             </systemPropertyVariables>
             <suiteXmlFiles>
-                <suiteXmlFile>testng.xml</suiteXmlFile>
+                <suiteXmlFile>smokeTest.xml</suiteXmlFile>
             </suiteXmlFiles>
         </configuration>
     </plugin>

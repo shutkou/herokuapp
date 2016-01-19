@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Suite" thread-count="2" parallel="tests">
+<parameter name="profile" value="qa1" />
   <test name="Test1" group-by-instances="true" preserve-order="true">
+  
     <classes>
+    <parameter name="browser" value="chrome" />
       <class name="com.herokuapp.qa.CreateOrderTest"/>
     </classes>
   </test>
   
   <test name="Test2" group-by-instances="true" preserve-order="true">
     <classes>
+    <parameter name="browser" value="firefox" />
       <class name="com.herokuapp.qa.CreateOrderTest"/>
     </classes>
   </test>

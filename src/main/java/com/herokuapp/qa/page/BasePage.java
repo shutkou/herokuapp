@@ -10,27 +10,26 @@ import java.util.stream.Stream;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.FluentWait;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.herokuapp.qa.driver.DriverUtil;
 import com.herokuapp.qa.driver.factory.DriverFactory;
 
 public abstract class BasePage {
 
-	//protected WebDriver driver;
 	protected DriverUtil driverUtil;
-	//protected FluentWait<WebDriver> wait;
 	
 	public BasePage() {
-		//this.driver = driver;
 		this.driverUtil = new DriverUtil();
-		//this.wait = driverUtil.wait(DriverUtil.TIMEOUT);
 	}
 	
 	protected By row = By.cssSelector(".line_item");
 	protected By name = By.cssSelector("td:nth-child(1)");
 	protected By price = By.cssSelector("td:nth-child(2)");
 	protected By quantity = By.cssSelector("td:nth-child(3)");
+	
+	@Autowired
+	protected String baseUrl; 
 	
 	public List<? extends WebElement> getRows() {
 		driverUtil.waitForAll(row, DriverUtil.TIMEOUT);
@@ -88,8 +87,5 @@ public abstract class BasePage {
 	protected WebDriver getDriver() {
 		return DriverFactory.getDriver();
 	}
-	
-//	protected FluentWait<WebDriver> _wait() {
-//		return driverUtil.wait(DriverUtil.TIMEOUT);
-//	}			
+
 }
